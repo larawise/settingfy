@@ -1,0 +1,59 @@
+{
+    "name"                  : "larawise/settingfy",
+    "type"                  : "package",
+    "description"           : "Settingfy is a flexible, driver-based configuration system for Laravel. It offers type-safe access, persistent storage, and cache support—backed by encryption, event dispatching, and semantic grouping for full control over your settings.\n",
+    "keywords"              : ["laravel", "configuration", "settings", "config", "driver-based", "cache", "redis", "database", "encrypted", "type-safe", "semantic", "settingfy", "larawise", "srylius", "modular", "scalable"],
+
+    "license"               : "MIT",
+    "homepage"              : "https://larawise.com/",
+
+    "authors"               : [{
+        "name"            : "Selçuk Çukur",
+        "email"           : "hk@selcukcukur.com.tr",
+        "homepage"        : "https://selcukcukur.com.tr"
+    }],
+
+    "support"               : {
+        "source"          : "https://github.com/larawise/settingfy",
+        "issues"          : "https://github.com/larawise/settingfy/issues",
+        "docs"            : "https://docs.larawise.com"
+    },
+
+    "require"               : {
+        "php"                               : "^8.2|^8.3|^8.4",
+        "predis/predis"                     : "^3.2",
+        "laravel/framework"                 : "^12.0"
+    },
+
+    "autoload"              : {
+        "psr-4"     : {
+            "Larawise\\Settingfy\\"         : "./src"
+        }
+    },
+    "autoload-dev"          : {
+        "psr-4"     : {
+            "Larawise\\Tests\\"             : "./tests"
+        }
+    },
+
+    "extra"                 : {
+        "laravel"   : {
+            "providers"     : ["Larawise\\Settingfy\\SettingfyProvider"],
+            "aliases"       : { "Settingfy": "Larawise\\Settingfy\\Facades\\Settingfy" }
+        }
+    },
+
+    "config"                : {
+        "optimize-autoloader"   : true,
+        "preferred-install"     : "dist",
+        "sort-packages"         : true,
+        "allow-plugins"         : {}
+    },
+
+    "suggest"               : {
+        "predis/predis" : "Required to use the predis connector (^3.0)."
+    },
+
+    "minimum-stability"     : "dev",
+    "prefer-stable"         : true
+}
