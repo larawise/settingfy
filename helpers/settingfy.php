@@ -8,22 +8,25 @@ if (! function_exists('setting')) {
      *
      * @param array<string, mixed>|string|null $key
      * @param mixed $default
+     * @param bool $persist
      *
      * @return ($key is null ? SettingfyContract : ($key is string ? mixed : null))
      */
-    function setting($key = null, $default = null)
+    function setting($key = null, $default = null, $persist = false)
     {
+        // No key provided — return the Settingfy service instance
         if (is_null($key)) {
-            // No key provided — return the full settingfy service
             return app('settingfy');
         }
 
+        // Array provided — set multiple settings (optionally save if forced)
         if (is_array($key)) {
-            // Array provided — set multiple settings at once
-            return app('settingfy')->set($key);
+            return $persist === true
+                ? app('settingfy')->set($key)->save()
+                : app('settingfy')->set($key);
         }
 
-        // String key provided — retrieve the setting value or fallback to default
+        // Single key provided — retrieve the setting value with optional default
         return app('settingfy')->get($key, $default);
     }
 }
