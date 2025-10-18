@@ -3,6 +3,8 @@
 namespace Larawise\Settingfy;
 
 use Larawise\Settingfy\Drivers\DatabaseDriver;
+use Larawise\Settingfy\Drivers\EnvDriver;
+use Larawise\Settingfy\Drivers\NativeDriver;
 use Larawise\Settingfy\Drivers\RedisDriver;
 use Larawise\Support\Manager;
 
@@ -32,6 +34,38 @@ class SettingfyManager extends Manager
             db: $this->container->make('db'),
             encrypter: $this->container->make('encrypter'),
             events: $this->container->make('events'),
+        );
+    }
+
+    /**
+     * Create an instance of the env setting driver.
+     *
+     * @return EnvDriver
+     */
+    protected function createEnvDriver()
+    {
+        // Instantiate and return the settingfy service with a database store backend
+        return new EnvDriver(
+            config: $this->config,
+            encrypter: $this->container->make('encrypter'),
+            events: $this->container->make('events'),
+            files: $this->container->make('files')
+        );
+    }
+
+    /**
+     * Create an instance of the native setting driver.
+     *
+     * @return NativeDriver
+     */
+    protected function createNativeDriver()
+    {
+        // Instantiate and return the settingfy service with a database store backend
+        return new NativeDriver(
+            config: $this->config,
+            encrypter: $this->container->make('encrypter'),
+            events: $this->container->make('events'),
+            files: $this->container->make('files')
         );
     }
 
