@@ -28,23 +28,21 @@ class SettingfyProvider extends PackagifyProvider
      */
     public function configure(Packagify $package)
     {
-        $package->name('settingfy')
-            ->description('Settingfy - A secure and modular settings manager with encryption, immutability, and database support.')
-            ->hasConfigurations()
-            ->hasMigrations()
-            ->hasHelpers();
-    }
+        // Set the package name
+        $package->name('settingfy');
 
-    /**
-     * Perform actions before the package is registered.
-     *
-     * @return void
-     */
-    public function packageRegistering()
-    {
-        // Register a shared binding in the container.
-        $this->app->singleton(
-            'settingfy', fn ($app) => new SettingfyManager($app)
-        );
+        // Set the package description
+        $package->description('Settingfy - A secure and modular settings manager with encryption, immutability, and database support.');
+
+        // Set the package version
+        $package->version('1.0.0');
+
+        // Set the package provideable.
+        $package->hasConfigurations();
+        $package->hasHelpers();
+        $package->hasMigrations();
+        $package->hasSingletons([
+            'settingfy' => fn ($app) => new SettingfyManager($app)
+        ]);
     }
 }

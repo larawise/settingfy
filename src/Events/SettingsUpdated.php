@@ -2,7 +2,7 @@
 
 namespace Larawise\Settingfy\Events;
 
-use Srylius\Events\Event;
+use Larawise\Events\Event;
 
 /**
  * Srylius - The ultimate symphony for technology architecture!

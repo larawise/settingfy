@@ -7,7 +7,6 @@ use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\ConnectionResolverInterface;
 use Illuminate\Database\Query\Builder;
 use Larawise\Support\Traits\Connectable;
-use Throwable;
 
 /**
  * Srylius - The ultimate symphony for technology architecture!
