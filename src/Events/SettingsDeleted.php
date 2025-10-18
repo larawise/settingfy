@@ -2,6 +2,7 @@
 
 namespace Larawise\Settingfy\Events;
 
+use Illuminate\Contracts\Queue\ShouldQueue;
 use Larawise\Events\Event;
 
 /**
@@ -15,7 +16,7 @@ use Larawise\Events\Event;
  *
  * @see https://docs.larawise.com/ Larawise : Docs
  */
-class SettingsDeleted extends Event
+class SettingsDeleted extends Event implements ShouldQueue
 {
     /**
      * Create a new event instance.
@@ -31,4 +32,24 @@ class SettingsDeleted extends Event
         public $changes = [],
         public $userId = 'system'
     ) {}
+
+    /**
+     * Determines whether the event should be queued.
+     *
+     * @return bool
+     */
+    public function shouldQueue()
+    {
+        return config('settingfy.queue.name', $this->shouldQueue);
+    }
+
+    /**
+     * Defines which queue this event should be dispatched to.
+     *
+     * @return string
+     */
+    public function viaQueue()
+    {
+        return config('settingfy.queue.name', 'settingfy');
+    }
 }

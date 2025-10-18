@@ -82,4 +82,19 @@ return [
             explode(',', env('SETTINGFY_GUARDED', ''))
         ),
     ],
+
+    /*
+    |--------------------------------------------------------------------------
+    | ℹ️ Settingfy (Queue)
+    |--------------------------------------------------------------------------
+    |
+    | This section controls how Settingfy events are dispatched.
+    | If enabled, events will be queued using Laravel's queue system.
+    | You can also specify a custom queue name for isolation and priority control.
+    |
+    */
+    'queue'                                     => [
+        'status'    => env('SETTINGFY_QUEUE', false),
+        'name'      => env('SETTINGFY_QUEUE_NAME', 'settingfy'),
+    ],
 ];
