@@ -2,6 +2,7 @@
 
 namespace Larawise\Settingfy\Drivers;
 
+use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Database\ConnectionResolverInterface;
@@ -33,6 +34,7 @@ class DatabaseDriver extends Driver
     /**
      * Create a new database setting driver instance.
      *
+     * @param Repository $config
      * @param ConnectionResolverInterface $db
      * @param Encrypter $encrypter
      * @param Dispatcher $events

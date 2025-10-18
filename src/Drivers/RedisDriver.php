@@ -24,7 +24,7 @@ class RedisDriver extends Driver
     use Connectable;
 
     /**
-     * Create a new database setting driver instance.
+     * Create a new redis setting driver instance.
      *
      * @param Repository $config
      * @param Encrypter $encrypter
