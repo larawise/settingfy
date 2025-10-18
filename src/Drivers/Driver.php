@@ -327,13 +327,13 @@ abstract class Driver extends LarawiseDriver implements SettingfyDriver
             return $this;
         }
 
-        // Ensure settings are loaded before modifying them
-        $this->load();
-
         // If multiple keys are provided, delegate to setMany()
         if (is_array($key)) {
             return $this->setMany($key, $force);
         }
+
+        // Ensure settings are loaded before modifying them
+        $this->load();
 
         // Store the value using Laravel's dot notation
         // Encrypt the value if necessary before storing

@@ -31,11 +31,14 @@ return new class extends Migration
 
             // Content
             $table->string('group')->index();
-            $table->string('key')->unique()->index();
+            $table->string('key')->index();
             $table->longText('value')->nullable();
 
             // Timestamps
             $table->timestamps();
+
+            // Definitions
+            $table->unique(['group', 'key']);
         });
     }
 

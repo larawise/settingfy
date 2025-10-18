@@ -71,11 +71,10 @@ interface SettingfyContract
      * Determine if multiple setting keys exist in memory.
      *
      * @param array $keys
-     * @param bool $force
      *
      * @return array
      */
-    public function hasMany($keys, $force = false);
+    public function hasMany($keys);
 
     /**
      * Persist the current in-memory settings to storage.
