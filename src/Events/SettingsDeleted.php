@@ -40,7 +40,7 @@ class SettingsDeleted extends Event implements ShouldQueue
      */
     public function shouldQueue()
     {
-        return config('settingfy.queue.name', $this->shouldQueue);
+        return config('settingfy.queue.status', $this->shouldQueue);
     }
 
     /**
