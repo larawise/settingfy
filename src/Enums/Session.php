@@ -88,7 +88,7 @@ enum Session: string
     /**
      * Converts a config key (e.g. 'session.driver') to its corresponding enum case.
      *
-     * @param string $key The config key to resolve.
+     * @param string $key
      *
      * @return self|null
      */
@@ -116,7 +116,7 @@ enum Session: string
     /**
      * Converts an enum case to its corresponding config key.
      *
-     * @param self $env The enum case to resolve.
+     * @param self $env
      *
      * @return string
      */
@@ -148,38 +148,64 @@ enum Session: string
      *
      * @return array<string>
      */
-    public static function keys()
+    public static function keys($forLarawise = true)
     {
-        return array_map(fn($case) => self::toKey($case), self::cases());
+        $cases = $forLarawise
+            ? self::cases()
+            : array_filter(self::cases(), fn($case) => ! self::isCustom($case));
+
+        return array_map(fn($case) => self::toKey($case), $cases);
     }
 
     /**
      * Returns all .env keys defined in this enum.
      *
+     * @param bool $forLarawise
+     *
      * @return array<string>
      */
-    public static function values()
+    public static function values($forLarawise = false)
     {
-        return array_column(self::cases(), 'value');
+        $cases = $forLarawise
+            ? self::cases()
+            : array_filter(self::cases(), fn($case) => ! self::isCustom($case));
+
+        return array_column($cases, 'value');
     }
 
     /**
      * Returns a map of env keys to config keys.
      *
+     * @param bool $forLarawise
+     *
      * @return array<string, string>
      */
-    public static function map()
+    public static function map($forLarawise = false)
     {
-        return array_combine(self::values(), self::keys());
+        return array_combine(self::values($forLarawise), self::keys($forLarawise));
     }
 
     /**
      * Returns a map of config keys to env keys.
      *
+     * @param bool $forLarawise
+     *
      * @return array<string, string>
      */
-    public static function reverseMap()
+    public static function reverseMap($forLarawise = false)
     {
-        return array_combine(self::keys(), self::values());
+        return array_combine(self::keys($forLarawise), self::values($forLarawise));
+    }
+
+    /**
+     * Determines whether the given enum case is custom-defined for Larawise.
+     *
+     * @param self $case
+     *
+     * @return bool
+     */
+    public static function isCustom($case)
+    {
+        return false;
     }
 }
