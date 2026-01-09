@@ -10,7 +10,7 @@ return [
     | persist and retrieve settings. It defines the underlying mechanism
     | for configuration management.
     |
-    | Supported: "database", "redis"
+    | Supported: "database", "env", "redis", "native"
     |
     */
     'driver'                                    => env('SETTINGFY_DRIVER', 'database'),

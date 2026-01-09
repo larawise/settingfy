@@ -2,10 +2,13 @@
 
 namespace Larawise\Settingfy\Drivers;
 
+use Dotenv\Dotenv;
 use Illuminate\Contracts\Config\Repository;
 use Illuminate\Contracts\Encryption\Encrypter;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Filesystem\Filesystem;
+use Illuminate\Support\Env;
+use RuntimeException;
 
 /**
  * Srylius - The ultimate symphony for technology architecture!
@@ -65,7 +68,11 @@ class EnvDriver extends Driver
      */
     protected function write($items)
     {
-        // ...
+        if ($this->files->missing($path = $this->environmentFilePath())) {
+            throw new RuntimeException("The file [{$path}] does not exist.");
+        }
+
+        Env::writeVariables($items, $this->environmentFilePath(), true);
     }
 
     /**
@@ -75,6 +82,50 @@ class EnvDriver extends Driver
      */
     protected function read()
     {
-        // ...
+        return Dotenv::create(
+            $this->environmentRepository(),
+            $this->environmentPath(),
+            $this->environmentFile()
+        )->safeLoad();
+    }
+
+    /**
+     * Get the current environment repository instance used by Laravel.
+     *
+     * @return \Dotenv\Repository\RepositoryInterface
+     */
+    protected function environmentRepository()
+    {
+        return Env::getRepository();
+    }
+
+    /**
+     * Get the name of the environment file Laravel is using.
+     *
+     * @return string
+     */
+    protected function environmentFile()
+    {
+        return app()->environmentFile();
+    }
+
+    /**
+     * Get the path to the environment file directory.
+     *
+     * @return string
+     */
+    protected function environmentFilePath()
+    {
+        return app()->environmentFilePath();
+    }
+
+    /**
+     * Get the path to the environment file directory.
+     *
+     * @return string
+     */
+    protected function environmentPath()
+    {
+        return app()->environmentPath();
     }
 }
